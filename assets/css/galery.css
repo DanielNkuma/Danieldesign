@@ -1,0 +1,148 @@
+/* ------------------ Daniel's Design - Photo Gallery CSS ------------------ */
+/* Palette: Noir #181818 | Or #E5C97B | Blanc #FFF | Fond doux #232323 */
+
+.gallery-container {
+    background: #181818;
+    padding: 3rem 1rem;
+    min-height: 100vh;
+}
+
+.gallery-title {
+    color: #E5C97B;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-shadow: 0 2px 16px #000A;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.15), 0 1.5px 6px #E5C97B22;
+    background: #232323;
+    cursor: pointer;
+    transform: scale(0.97);
+    transition: box-shadow 0.35s cubic-bezier(.42,.7,.09,1.17), transform 0.25s cubic-bezier(.42,.7,.09,1.17);
+    animation: fadeInUp 1s cubic-bezier(.42,.7,.09,1.17);
+}
+
+.gallery-item:hover {
+    box-shadow: 0 12px 48px 0 #E5C97B66, 0 2px 12px #000A;
+    transform: scale(1.03) rotate(-1.5deg);
+    z-index: 3;
+}
+
+.gallery-img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 14px;
+    transition: filter 0.35s, transform 0.35s;
+    filter: brightness(0.95) grayscale(18%) contrast(1.08);
+}
+
+.gallery-item:hover .gallery-img {
+    filter: brightness(1.1) grayscale(0%) contrast(1.2);
+    transform: scale(1.08) rotate(1.5deg);
+}
+
+.gallery-caption {
+    position: absolute;
+    left: 0; right: 0; bottom: -50%;
+    padding: 1.2rem;
+    background: linear-gradient(0deg, #181818ee 90%, transparent 100%);
+    color: #fff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 1.2px;
+    opacity: 0;
+    transition: bottom 0.35s cubic-bezier(.42,.7,.09,1.17), opacity 0.35s;
+    text-align: left;
+    border-radius: 0 0 14px 14px;
+}
+
+.gallery-item:hover .gallery-caption {
+    bottom: 0;
+    opacity: 1;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.92);
+    }
+    80% {
+        opacity: 0.7;
+        transform: translateY(-5px) scale(1.03);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(0.97);
+    }
+}
+
+/* ----------- Responsive ----------- */
+@media (max-width: 900px) {
+    .gallery-title { font-size: 2rem; }
+    .gallery-grid { gap: 1.2rem; }
+}
+@media (max-width: 600px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+    .gallery-container { padding: 2rem 0.5rem; }
+}
+
+/* ----------- Optional: Lightbox modal preview ----------- */
+.gallery-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(24,24,24, 0.95);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: modalFadeIn 0.5s;
+}
+.gallery-modal.active { display: flex; }
+.gallery-modal-img {
+    max-width: 96vw;
+    max-height: 85vh;
+    border-radius: 20px;
+    box-shadow: 0 8px 48px #E5C97B66;
+    background: #232323;
+    animation: zoomIn 0.5s;
+}
+.gallery-modal-close {
+    position: absolute;
+    top: 2rem;
+    right: 2.5rem;
+    font-size: 2.2rem;
+    color: #E5C97B;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.22s;
+    z-index: 10001;
+}
+.gallery-modal-close:hover { color: #fff; }
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
