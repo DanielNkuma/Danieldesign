@@ -2,14 +2,67 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Daniel’s Design</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Burger menu styles */
+        .burger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 0.2rem;
+            width: 2.3rem;
+            height: 2.3rem;
+            justify-content: center;
+            align-items: center;
+        }
+        .burger span {
+            background: #E5C97B;
+            width: 2.3rem;
+            height: 0.28rem;
+            border-radius: 2px;
+            display: block;
+            transition: 0.3s;
+        }
+        @media (max-width: 700px) {
+            nav ul {
+                display: none;
+                width: 100%;
+                background: #181818;
+                position: absolute;
+                left: 0;
+                top: 60px;
+                flex-direction: column;
+                box-shadow: 0 2px 10px #0005;
+                z-index: 100;
+                padding: 1rem 0;
+            }
+            nav ul.active {
+                display: flex;
+            }
+            .burger {
+                display: flex;
+                margin-left: auto;
+            }
+            header nav {
+                position: relative;
+            }
+        }
+    </style>
 </head>
 <body>
   <header>
         <nav>
             <a href="index.html" class="logo">Daniel’s Design</a>
-            <ul>
+            <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="main-nav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="main-nav">
                 <li><a href="imprimerie.html">Imprimerie</a></li>
                 <li><a href="studio.html">Studio Photo</a></li>
                 <li><a href="about.html">À propos</a></li>
@@ -19,7 +72,9 @@
         </nav>
     </header>
     <main>
-        <marquee style="color: gold; font-family: Georgia, 'Times New Roman', Times, serif;" >Site en construction</marquee>
+        <div class="notification-bar" style="width:100%;text-align:center;background:#111;color:#E5C97B;padding:0.4rem 0;font-family: Georgia, 'Times New Roman', Times, serif;">
+            Site en construction
+        </div>
 
         <h1 style="text-align: center;">Contactez-nous</h1>
         <form action="backend/contact.php" method="POST" class="form">
@@ -28,19 +83,32 @@
             <textarea name="message" placeholder="Votre message" required></textarea>
             <button type="submit" class="btn gold">Envoyer</button>
         </form>
-        <div class="infos" style="text-align: center;">
+        <div class="infos" style="text-align: center; margin-top:2rem;">
             <p>Tél : 0123 456 789</p>
             <p>Email : contact@danielsdesign.com</p>
             <p>
-                <a href="https://maps.google.com" target="_blank">Voir sur Google Maps</a>
+                <a href="https://maps.google.com" target="_blank" style="color:#E5C97B;">Voir sur Google Maps</a>
             </p>
-            <div class="socials">
-                <a href="#">Instagram</a> | <a href="#">Facebook</a> | <a href="#">WhatsApp</a>
+            <div class="socials" style="margin-top:1rem;">
+                <a href="#" aria-label="Instagram" style="margin-right:0.6rem;">Instagram</a> 
+                <span style="color: #E5C97B;">|</span> 
+                <a href="#" aria-label="Facebook" style="margin:0 0.6rem;">Facebook</a>
+                <span style="color: #E5C97B;">|</span> 
+                <a href="#" aria-label="WhatsApp" style="margin-left:0.6rem;">WhatsApp</a>
             </div>
         </div>
     </main>
    <footer>
         <p>&copy; 2025 Daniel’s Design – Tous droits réservés</p>
     </footer>
+    <!-- Burger menu script -->
+    <script>
+        const burger = document.querySelector('.burger');
+        const navUl = document.getElementById('main-nav');
+        burger.addEventListener('click', () => {
+            navUl.classList.toggle('active');
+            burger.setAttribute('aria-expanded', navUl.classList.contains('active'));
+        });
+    </script>
 </body>
 </html>
