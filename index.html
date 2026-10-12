@@ -1,114 +1,940 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel’s Design - Accueil</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="icon" href="assets/Image/lg copie.png">
-    <style>
-        /* Burger menu styles (inline for demo, mets dans ton CSS si tu préfères) */
-        .burger {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            flex-direction: column;
-            gap: 0.2rem;
-            width: 2.3rem;
-            height: 2.3rem;
-            justify-content: center;
-            align-items: center;
-        }
-        .burger span {
-            background: #E5C97B;
-            width: 2.3rem;
-            height: 0.28rem;
-            border-radius: 2px;
-            display: block;
-            transition: 0.3s;
-        }
-        @media (max-width: 700px) {
-            nav ul {
-                display: none;
-                width: 100%;
-                background: #181818;
-                position: absolute;
-                left: 0;
-                top: 60px;
-                flex-direction: column;
-                box-shadow: 0 2px 10px #0005;
-                z-index: 100;
-                padding: 1rem 0;
-            }
-            nav ul.active {
-                display: flex;
-            }
-            .burger {
-                display: flex;
-                margin-left: auto;
-            }
-            header nav {
-                position: relative;
-            }
-        }
-    </style>
+    <title>Daniel's design photography</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+    /* Réinitialisation de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0b0b0b; /* Fond noir profond pour faire ressortir les photos */
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background-color: rgba(11, 11, 11, 0.95);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #ababab;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: #fff;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 8%;
+    /* Remplacez par votre plus belle photo en arrière-plan */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('../images/hero-bg.webp') no-repeat center center/cover;
+}
+.hero-video{
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    z-index:-2;
+
+}
+
+.hero-overlay{
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:100%;
+
+    background:linear-gradient(
+
+        rgba(0,0,0,.55),
+
+        rgba(0,0,0,.75)
+
+    );
+
+    z-index:-1;
+
+}
+
+
+.gradient-text {
+
+    background:linear-gradient(90deg,#ffffff,#d8b26e);
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+.hero-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #ffffff;
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    margin-top: 25px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    background-color: #e0e0e0;
+}
+
+/* Boutons de navigation du filtre */
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background-color: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+/* Grille Responsive */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0 8%;
+    margin-bottom: 50px;
+}
+
+/* Élément de la galerie et animations */
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    height: 350px;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Effet au survol (Overlay text) */
+.item-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.portfolio-item:hover .item-overlay {
+    opacity: 1;
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Classes pour masquer/afficher via JS */
+.portfolio-item.hide {
+    transform: scale(0.8);
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    pointer-events: none;
+}
+
+/* Style de la Lightbox */
+.lightbox {
+    display: none; /* Masqué par défaut */
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(11, 11, 11, 0.95); /* Fond noir transparent */
+    backdrop-filter: blur(10px); /* Effet de flou cool en arrière-plan */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Affiché quand actif via JS */
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox-content {
+    max-width: 85%;
+    max-height: 80vh;
+    text-align: center;
+}
+
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 75vh;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+#lightbox-caption {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    color: #ababab;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Bouton Fermer */
+.close-lightbox {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: #fff;
+    font-size: 40px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.close-lightbox:hover { transform: scale(1.2); }
+
+/* Boutons de Navigation (Suivant / Précédent) */
+.lightbox-nav {
+    position: absolute;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    padding: 20px;
+    transition: color 0.3s;
+}
+.lightbox-nav:hover { color: #ababab; }
+.prev-btn { left: 40px; }
+.next-btn { right: 40px; }
+
+/* Rendre le curseur de la grille cliquable */
+.portfolio-item {
+    cursor: pointer;
+}
+
+ .about-section, .contact-section {
+    padding: 120px 8% 60px 8%; /* Top padding pour éviter d'être masqué par la navbar fixe */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.about-container, .contact-container {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    width: 100%;
+}
+
+.about-text, .contact-info {
+    flex: 1;
+}
+
+.subtitle {
+    color: #ababab;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+}
+
+.about-text h2, .contact-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    margin: 10px 0 20px 0;
+}
+
+.about-text p {
+    color: #cdcdcd;
+    margin-bottom: 15px;
+}
+
+.about-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.about-image img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* --- STYLE PAGE CONTACT & FORMULAIRE --- */
+.contact-form-container {
+    flex: 1;
+    background-color: #121212;
+    padding: 40px;
+    border-radius: 8px;
+    border: 1px solid #222;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: #ababab;
+    margin-bottom: 8px;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 12px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #fff;
+}
+
+.btn-submit {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #e0e0e0;
+}
+
+.info-details p {
+    margin: 10px 0;
+    color: #cdcdcd;
+}
+
+/* --- LE FOOTER GLOBAL (À ajouter en bas de chaque page si souhaité) --- */
+footer {
+    padding: 30px 8%;
+    border-top: 1px solid #222;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+    .about-container, .contact-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .about-image {
+        order: -1; /* L'image passe au-dessus sur mobile */
+    }
+}
+
+</style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo">Daniel’s Design</a>
-            <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="main-nav">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul id="main-nav">
-                <li><a href="imprimerie.html">Imprimerie</a></li>
-                <li><a href="studio.html">Studio Photo</a></li>
-                <li><a href="about.html">À propos</a></li>
-                <li><a href="temoignages.html">Témoignages</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <div class="notification-bar" style="width:100%;text-align:center;background:#111;color:#E5C97B;padding:0.4rem 0;font-family: Georgia, 'Times New Roman', Times, serif;">
-            Site en construction
+    
+    <nav class="navbar">
+        <div class="logo">Daniel’s Design photography</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Accueil</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="services.html">Services</a></li>
+             <li><a href="galerie.html">Galerie</a></li>
+            <li><a href="about.html">A propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+   <header class="hero">
+
+    <!-- Vidéo de fond -->
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="Images/Daniel_s_Design_Printing_Photography.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas les vidéos HTML5.
+    </video>
+
+    <!-- Overlay sombre -->
+    <div class="hero-overlay"></div>
+
+    <!-- Contenu -->
+    <div class="hero-content">
+        <h1>
+            Capturer l’instant,<br>
+            <span class="gradient-text">sublimer l'émotion.</span>
+        </h1>
+
+        <p>
+            Le studio visuel de référence pour vos portraits,
+            événements et identités graphiques.
+        </p>
+
+        <a href="portfolio.html" class="btn">
+            Découvrir le Portfolio
+        </a>
+    </div>
+
+</header>
+
+<!-- Boutons de filtrage -->
+<div class="filter-buttons">
+    <button class="filter-btn active" data-filter="all">Tout</button>
+    <button class="filter-btn" data-filter="portrait">Défense de fin de cycle</button>
+    <button class="filter-btn" data-filter="concert">Mariage Civil</button>
+    <button class="filter-btn" data-filter="sport">Mariage Coutumier</button>
+    <button class="filter-btn" data-filter="design">Save the date </button>
+</div>
+
+<!-- Grille du Portfolio -->
+<section class="portfolio-grid">
+    <!-- Image 1 -->
+    <div class="portfolio-item" data-category="portrait">
+        <img src="Images/Accueil (1).jpg" alt="Portrait Studio Daniel's Design">
+        <div class="item-overlay">
+            <h3>Défense de fin de cycle</h3>
         </div>
-        <section class="hero">
-            <img style="display:inline-block;max-width:100%;height:auto;" src="assets/Image/image1.png" alt="Bannière Daniel’s Design">
-            <h1>L’Art de l’Image & de l’Impression Professionnelle</h1>
-            <p>Imprimerie haut de gamme & studio photo professionnel à votre service.</p>
-            <div class="cta-buttons">
-                <a href="imprimerie.html" class="btn gold">Demander un devis</a>
-                <a href="studio.html" class="btn white">Réserver un shooting</a>
-            </div>
-        </section>
-        <section class="services-preview">
-            <div>
-                <h2>Imprimerie</h2>
-                <p>Flyers, affiches, cartes de visite, t-shirts personnalisés...</p>
-                <a href="imprimerie.html" class="btn outline">Voir plus</a>
-            </div>
-            <div>
-                <h2>Studio Photo</h2>
-                <p>Shooting professionnel, événements, retouches, studio équipé...</p>
-                <a href="studio.html" class="btn outline">Voir plus</a>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 Daniel’s Design – Tous droits réservés</p>
-    </footer>
-    <!-- Burger menu script -->
-    <script>
-        const burger = document.querySelector('.burger');
-        const navUl = document.getElementById('main-nav');
-        burger.addEventListener('click', () => {
-            navUl.classList.toggle('active');
-            burger.setAttribute('aria-expanded', navUl.classList.contains('active'));
+
+    </div>
+
+    <div class="portfolio-item" data-category="portrait">
+        <img src="Images/Accueil (2).jpg" alt="Portrait Studio Daniel's Design">
+        <div class="item-overlay">
+            <h3>Défense de fin de cycle</h3>
+        </div>
+
+    </div>
+
+
+    <div class="portfolio-item" data-category="portrait">
+        <img src="Images/Accueil (3).jpg" alt="Portrait Studio Daniel's Design">
+        <div class="item-overlay">
+            <h3>Défense de fin de cycle</h3>
+        </div>
+
+    </div>
+
+    <div class="portfolio-item" data-category="portrait">
+        <img src="Images/norm (11 sur 89).jpg" alt="Portrait Studio Daniel's Design">
+        <div class="item-overlay">
+            <h3>Défense de fin de cycle</h3>
+        </div>
+
+    </div>
+
+    <div class="portfolio-item" data-category="portrait">
+        <img src="Images/norm (13 sur 89).jpg" alt="Portrait Studio Daniel's Design">
+        <div class="item-overlay">
+            <h3>Défense de fin de cycle</h3>
+        </div>
+
+    </div>
+
+
+    <div class="portfolio-item" data-category="portrait">
+        <img src="Images/norm (51 sur 89).jpg" alt="Portrait Studio Daniel's Design">
+        <div class="item-overlay">
+            <h3>Défense de fin de cycle </h3>
+        </div>
+
+    </div>
+    
+    <!-- Image 2 -->
+    <div class="portfolio-item" data-category="concert">
+        <img src="Images/Mariage civil (1).jpg" alt="Concert Live Kinshasa">
+        <div class="item-overlay">
+            <h3>Mariage Civil/h3>
+        </div>
+    </div>
+<div class="portfolio-item" data-category="concert">
+        <img src="Images/Mariage civil (2).jpg" alt="Concert Live Kinshasa">
+        <div class="item-overlay">
+            <h3>Mariage Civil</h3>
+        </div>
+    </div>
+
+    <div class="portfolio-item" data-category="concert">
+        <img src="Images/Mariage civil (3).jpg" alt="Concert Live Kinshasa">
+        <div class="item-overlay">
+            <h3>Mariage Civil</h3>
+        </div>
+    </div>
+
+
+    <div class="portfolio-item" data-category="concert">
+        <img src="Images/Mariage civil (4).jpg" alt="Concert Live Kinshasa">
+        <div class="item-overlay">
+            <h3>Mariage Civil</h3>
+        </div>
+    </div>
+    <div class="portfolio-item" data-category="concert">
+        <img src="Images/Mariage civil (5).jpg" alt="Concert Live Kinshasa">
+        <div class="item-overlay">
+            <h3>Mariage Civil</h3>
+        </div>
+    </div>
+
+        <div class="portfolio-item" data-category="concert">
+        <img src="Images/Mariage civil (6).jpg" alt="Concert Live Kinshasa">
+        <div class="item-overlay">
+            <h3>Mariage Civil</h3>
+        </div>
+    </div>
+    <!-- Image 3 -->
+    <div class="portfolio-item" data-category="sport">
+        <img src="Images/Mariage coutumier (4).PNG" alt="Combat Boxe">
+        <div class="item-overlay">
+            <h3>Mariage Coutumier</h3>
+        </div>
+    </div>
+
+    <div class="portfolio-item" data-category="sport">
+        <img src="Images/Mariage coutumier (1).PNG" alt="Combat Boxe">
+        <div class="item-overlay">
+            <h3>Mariage Coutumier</h3>
+        </div>
+    </div>
+
+
+<div class="portfolio-item" data-category="sport">
+        <img src="Images/Mariage coutumier (2).PNG" alt="Combat Boxe">
+        <div class="item-overlay">
+            <h3>Mariage Coutumier</h3>
+        </div>
+    </div>
+
+
+    <div class="portfolio-item" data-category="sport">
+        <img src="Images/Mariage coutumier (3).PNG" alt="Combat Boxe">
+        <div class="item-overlay">
+            <h3>Mariage Coutumier</h3>
+        </div>
+    </div>
+
+
+
+    <div class="portfolio-item" data-category="sport">
+        <img src="Images/Mariage coutumier (5).PNG" alt="Combat Boxe">
+        <div class="item-overlay">
+            <h3>Mariage Coutumier</h3>
+        </div>
+    </div>
+
+    <div class="portfolio-item" data-category="sport">
+        <img src="Images/Mariage coutumier (6).PNG" alt="Combat Boxe">
+        <div class="item-overlay">
+            <h3>Mariage Coutumier</h3>
+        </div>
+    </div>
+
+    <!-- Image 4 -->
+    <div class="portfolio-item" data-category="design">
+        <img src="Images/Save the date.PNG" alt="Affiche Graphique Daniel's Design">
+        <div class="item-overlay">
+            <h3>Save the date</h3>
+        </div>
+    </div>
+
+<div class="portfolio-item" data-category="design">
+        <img src="Images/Save the date 4.PNG" alt="Affiche Graphique Daniel's Design">
+        <div class="item-overlay">
+            <h3>Save the date</h3>
+        </div>
+    </div>
+
+    <div class="portfolio-item" data-category="design">
+        <img src="Images/save the date (2).jpg" alt="Affiche Graphique Daniel's Design">
+        <div class="item-overlay">
+            <h3>Save the date</h3>
+        </div>
+    </div>
+ <div class="portfolio-item" data-category="design">
+        <img src="Images/save the date (3).jpg" alt="Affiche Graphique Daniel's Design">
+        <div class="item-overlay">
+            <h3>Save the date</h3>
+        </div>
+    </div>
+</section>
+
+
+<div id="lightbox" class="lightbox">
+    <span class="close-lightbox">&times;</span>
+    <button class="lightbox-nav prev-btn">&#10094;</button>
+    <div class="lightbox-content">
+        <img id="lightbox-img" src="Images/save the date (1).jpg" alt="Aperçu plein écran">
+        <p id="lightbox-caption"></p>
+    </div>
+    <button class="lightbox-nav next-btn">&#10095;</button>
+</div>
+
+   
+<footer>
+    <p>&copy; 2026 Daniel’s Design Photography. Tous droits réservés. Conçu avec passion à Kinshasa.</p>
+</footer>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".filter-btn");
+    const items = document.querySelectorAll(".portfolio-item");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            // 1. Mettre à jour le bouton actif
+            buttons.forEach(btn => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            // 2. Récupérer la catégorie sélectionnée
+            const targetFilter = button.getAttribute("data-filter");
+
+            // 3. Filtrer les éléments de la grille
+            items.forEach(item => {
+                const itemCategory = item.getAttribute("data-category");
+
+                if (targetFilter === "all" || itemCategory === targetFilter) {
+                    item.classList.remove("hide");
+                } else {
+                    item.classList.add("hide");
+                }
+            });
         });
-    </script>
+    });
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    // --- 1. SYSTÈME DE FILTRE ---
+    const buttons = document.querySelectorAll(".filter-btn");
+    const items = document.querySelectorAll(".portfolio-item");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            buttons.forEach(btn => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            const targetFilter = button.getAttribute("data-filter");
+
+            items.forEach(item => {
+                const itemCategory = item.getAttribute("data-category");
+                if (targetFilter === "all" || itemCategory === targetFilter) {
+                    item.classList.remove("hide");
+                } else {
+                    item.classList.add("hide");
+                }
+            });
+        });
+    });
+
+    // --- 2. SYSTÈME LIGHTBOX PREMIUM ---
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxCaption = document.getElementById("lightbox-caption");
+    const closeBtn = document.querySelector(".close-lightbox");
+    const prevBtn = document.querySelector(".prev-btn");
+    const nextBtn = document.querySelector(".next-btn");
+    
+    let activeImages = [];
+    let currentIndex = 0;
+
+    // Ouvrir la lightbox au clic sur un élément de la galerie
+    items.forEach(item => {
+        item.addEventListener("click", () => {
+            // Récupérer uniquement les images actuellement visibles (filtrées)
+            activeImages = Array.from(items).filter(i => !i.classList.contains("hide"));
+            currentIndex = activeImages.indexOf(item);
+
+            updateLightbox();
+            lightbox.classList.add("active");
+        });
+    });
+
+    // Mettre à jour le contenu de la lightbox
+    function updateLightbox() {
+        const currentItem = activeImages[currentIndex];
+        const imgTarget = currentItem.querySelector("img");
+        const titleTarget = currentItem.querySelector("h3");
+
+        lightboxImg.src = imgTarget.src;
+        lightboxCaption.textContent = titleTarget ? titleTarget.textContent : "";
+    }
+
+    // Navigation : Image suivante
+    nextBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        currentIndex = (currentIndex + 1) < activeImages.length ? currentIndex + 1 : 0;
+        updateLightbox();
+    });
+
+    // Navigation : Image précédente
+    prevBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        currentIndex = (currentIndex - 1) >= 0 ? currentIndex - 1 : activeImages.length - 1;
+        updateLightbox();
+    });
+
+    // Fermer au clic sur la croix ou à l'extérieur de l'image
+    closeBtn.addEventListener("click", () => lightbox.classList.remove("active"));
+    lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) lightbox.classList.remove("active");
+    });
+
+    // Bonus pro : Navigation au clavier (Flèches gauche/droite et Échap)
+    document.addEventListener("keydown", (e) => {
+        if (!lightbox.classList.contains("active")) return;
+        if (e.key === "Escape") lightbox.classList.remove("active");
+        if (e.key === "ArrowRight") nextBtn.click();
+        if (e.key === "ArrowLeft") prevBtn.click();
+    });
+});
+
+   /**
+ * DANIEL'S DESIGN PHOTOGRAPHY - ARCHITECTURE SCRIPT GLOBAL
+ * Gère la navigation mobile, le filtrage de la galerie et la visionneuse plein écran.
+ */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    // ==========================================
+    // 1. NAVIGATION MOBILE (MENU HAMBURGER)
+    // ==========================================
+    const navbar = document.querySelector(".navbar");
+    const navLinks = document.querySelector(".nav-links");
+    
+    // Création dynamique du bouton hamburger si non présent dans le HTML
+    if (navbar && navLinks && !document.querySelector(".menu-toggle")) {
+        const toggleBtn = document.createElement("button");
+        toggleBtn.classList.add("menu-toggle");
+        toggleBtn.innerHTML = `
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        `;
+        navbar.insertBefore(toggleBtn, navLinks);
+
+        toggleBtn.addEventListener("click", () => {
+            navLinks.classList.toggle("mobile-active");
+            toggleBtn.classList.toggle("is-active");
+        });
+
+        // Ferme le menu mobile si on clique sur un lien
+        document.querySelectorAll(".nav-links a").forEach(link => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("mobile-active");
+                toggleBtn.classList.remove("is-active");
+            });
+        });
+    }
+
+
+    // ==========================================
+    // 2. FILTRAGE DYNAMIQUE DE LA GALERIE
+    // ==========================================
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const portfolioItems = document.querySelectorAll(".portfolio-item");
+
+    if (filterButtons.length > 0 && portfolioItems.length > 0) {
+        filterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                // Gestion de la classe active sur les boutons
+                filterButtons.forEach(btn => btn.classList.remove("active"));
+                button.classList.add("active");
+
+                const selectedFilter = button.getAttribute("data-filter");
+
+                // Filtrage avec animation
+                portfolioItems.forEach(item => {
+                    const itemCategory = item.getAttribute("data-category");
+
+                    if (selectedFilter === "all" || itemCategory === selectedFilter) {
+                        item.classList.remove("hide");
+                    } else {
+                        item.classList.add("hide");
+                    }
+                });
+            });
+        });
+    }
+
+
+    // ==========================================
+    // 3. VISIONNEUSE PLEIN ÉCRAN (LIGHTBOX ART)
+    // ==========================================
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxCaption = document.getElementById("lightbox-caption");
+    const closeBtn = document.querySelector(".close-lightbox");
+    const prevBtn = document.querySelector(".prev-btn");
+    const nextBtn = document.querySelector(".next-btn");
+    
+    let visibleImages = [];
+    let currentIndex = 0;
+
+    if (lightbox && lightboxImg && portfolioItems.length > 0) {
+        
+        // Ouvrir la lightbox au clic sur un élément de la galerie
+        portfolioItems.forEach(item => {
+            item.addEventListener("click", () => {
+                // Stocke uniquement les images actuellement affichées par le filtre
+                visibleImages = Array.from(portfolioItems).filter(i => !i.classList.contains("hide"));
+                currentIndex = visibleImages.indexOf(item);
+
+                updateLightboxContent();
+                lightbox.classList.add("active");
+                document.body.style.overflow = "hidden"; // Bloque le scroll du site en arrière-plan
+            });
+        });
+
+        // Met à jour l'image et la légende de la visionneuse
+        function updateLightboxContent() {
+            if (visibleImages.length === 0) return;
+            
+            const currentItem = visibleImages[currentIndex];
+            const targetImg = currentItem.querySelector("img");
+            const targetTitle = currentItem.querySelector("h3");
+
+            if (targetImg) {
+                lightboxImg.src = targetImg.src;
+                lightboxImg.alt = targetImg.alt;
+            }
+            if (lightboxCaption) {
+                lightboxCaption.textContent = targetTitle ? targetTitle.textContent : "";
+            }
+        }
+
+        // Image suivante
+        if (nextBtn) {
+            nextBtn.addEventListener("click", (e) => {
+                e.stopPropagation(); // Évite la fermeture accidentelle de la lightbox
+                currentIndex = (currentIndex + 1) < visibleImages.length ? currentIndex + 1 : 0;
+                updateLightboxContent();
+            });
+        }
+
+        // Image précédente
+        if (prevBtn) {
+            prevBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                currentIndex = (currentIndex - 1) >= 0 ? currentIndex - 1 : visibleImages.length - 1;
+                updateLightboxContent();
+            });
+        }
+
+        // Fermeture de la lightbox
+        const closeLightbox = () => {
+            lightbox.classList.remove("active");
+            document.body.style.overflow = ""; // Réactive le scroll global
+        };
+
+        if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
+        
+        lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Raccourcis Clavier (Flèches et Escape)
+        document.addEventListener("keydown", (e) => {
+            if (!lightbox.classList.contains("active")) return;
+            
+            if (e.key === "Escape") closeLightbox();
+            if (e.key === "ArrowRight" && nextBtn) nextBtn.click();
+            if (e.key === "ArrowLeft" && prevBtn) prevBtn.click();
+        });
+    }
+});
+
+</script>
 </body>
 </html>
